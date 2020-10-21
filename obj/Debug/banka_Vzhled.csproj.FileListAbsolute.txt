@@ -1,0 +1,16 @@
+C:\Users\Alex\Desktop\banka_Vzhled\bin\Debug\banka_Vzhled.exe.config
+C:\Users\Alex\Desktop\banka_Vzhled\bin\Debug\banka_Vzhled.exe
+C:\Users\Alex\Desktop\banka_Vzhled\bin\Debug\banka_Vzhled.pdb
+C:\Users\Alex\Desktop\banka_Vzhled\obj\Debug\banka_Vzhled.csprojAssemblyReference.cache
+C:\Users\Alex\Desktop\banka_Vzhled\obj\Debug\MainWindow.g.cs
+C:\Users\Alex\Desktop\banka_Vzhled\obj\Debug\App.g.cs
+C:\Users\Alex\Desktop\banka_Vzhled\obj\Debug\banka_Vzhled_MarkupCompile.cache
+C:\Users\Alex\Desktop\banka_Vzhled\obj\Debug\banka_Vzhled_MarkupCompile.lref
+C:\Users\Alex\Desktop\banka_Vzhled\obj\Debug\MainWindow.baml
+C:\Users\Alex\Desktop\banka_Vzhled\obj\Debug\banka_Vzhled.g.resources
+C:\Users\Alex\Desktop\banka_Vzhled\obj\Debug\banka_Vzhled.Properties.Resources.resources
+C:\Users\Alex\Desktop\banka_Vzhled\obj\Debug\banka_Vzhled.csproj.GenerateResource.cache
+C:\Users\Alex\Desktop\banka_Vzhled\obj\Debug\banka_Vzhled.csproj.CoreCompileInputs.cache
+C:\Users\Alex\Desktop\banka_Vzhled\obj\Debug\banka_Vzhled.exe
+C:\Users\Alex\Desktop\banka_Vzhled\obj\Debug\banka_Vzhled.pdb
+C:\Users\Alex\Desktop\banka_Vzhled\obj\Debug\App.baml

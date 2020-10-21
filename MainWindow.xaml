@@ -1,0 +1,83 @@
+﻿<Window x:Class="banka_Vzhled.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:banka_Vzhled"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="550" Width="950"
+        SizeChanged="Window_SizeChanged"
+        MinHeight="550" MinWidth="950"
+        ResizeMode="NoResize">
+    <Grid>
+
+        <DockPanel x:Name="panelSideMenu" Background="Black" HorizontalAlignment="Left" Height="600" LastChildFill="False" VerticalAlignment="Top" Width="250" Margin="0,0,0,-50">
+            <DockPanel x:Name="panelLogo" Height="100" LastChildFill="False" VerticalAlignment="Top" Width="250" DockPanel.Dock="Top">
+                <Image x:Name="imageLogo" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100"/>
+            </DockPanel>
+            <Button x:Name="BTNmainOperator" Content="Hlavní okno" Padding="10" BorderThickness="0" Height="45" DockPanel.Dock="Top" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Foreground="White" HorizontalContentAlignment="Left" Width="250" Click="BTNmainOperator_Click"/>
+            <Button x:Name="BTNvytvorit" Content="Vytvořit" Padding="10" BorderThickness="0" Height="45" DockPanel.Dock="Top" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Foreground="White" HorizontalContentAlignment="Left" Width="250" Click="BTNvytvorit_Click"/>
+            <Button x:Name="BTNpenize" Content="Peníze" Padding="10" BorderThickness="0" Height="45" DockPanel.Dock="Top" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Foreground="White" HorizontalContentAlignment="Left" Width="250" Click="BTNpenize_Click"/>
+
+            <DockPanel x:Name="panelPenize" Height="90" LastChildFill="False" VerticalAlignment="Top" DockPanel.Dock="Top">
+                <Button x:Name="BTNbankomat" Content="Bankomat" Height="45" VerticalAlignment="Top" DockPanel.Dock="Top" HorizontalContentAlignment="Left" Padding="35, 0, 0, 0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Foreground="White" Click="BTNbankvklad_Click"/>
+                <Button x:Name="BTNvkladomat" Content="Vkladomat" Height="45" VerticalAlignment="Top" DockPanel.Dock="Top" HorizontalContentAlignment="Left" Padding="35, 0, 0, 0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Foreground="White" Click="BTNbankvklad_Click"/>
+            </DockPanel>
+
+            <Button x:Name="BTNsplatky" Content="Splátky" Padding="10" BorderThickness="0" Height="45" DockPanel.Dock="Top" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Foreground="White" HorizontalContentAlignment="Left" Width="250"/>
+            <Button x:Name="BTNnapoveda" Content="Nápověda" Padding="10" BorderThickness="0" Height="45" DockPanel.Dock="Top" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Foreground="White" HorizontalContentAlignment="Left" Width="250"/>
+            <Image Height="185" VerticalAlignment="Top" Width="100"/>
+        </DockPanel>
+
+        <DockPanel x:Name="ohraniceniDole" Background="Black" HorizontalAlignment="Left" Height="100" LastChildFill="False" Margin="250,419,0,0" VerticalAlignment="Top" Width="100"/>
+        <DockPanel x:Name="ohraniceniNahore" Background="Black" HorizontalAlignment="Left" Height="100" LastChildFill="False" Margin="250,0,0,0" VerticalAlignment="Top" Width="100"/>
+
+        <ListBox x:Name="VypsaneUcty" HorizontalAlignment="Left" Height="319" Margin="250,100,0,0" VerticalAlignment="Top" Width="187" SelectionChanged="VypsaneUcty_SelectionChanged"/>
+
+        <Label x:Name="InfoUctyLabel" HorizontalAlignment="Left" Margin="437,100,0,0" VerticalAlignment="Top" Height="319" Width="190"/>
+        <Calendar x:Name="Kalendar" HorizontalAlignment="Left" Margin="682,100,0,0" VerticalAlignment="Top"/>
+
+        <DockPanel x:Name="panelVytvorit" HorizontalAlignment="Left" Height="195" Width="350" LastChildFill="False" Margin="437,161,0,0" VerticalAlignment="Top" Background="Black">
+
+            <TextBox x:Name="jmeno" Height="50" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" DockPanel.Dock="Top" Background="Transparent" Foreground="Gray" FontSize="20" HorizontalContentAlignment="Left" Padding="5, 0, 0, 0"/>
+            <TextBox x:Name="pin" Height="50" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" DockPanel.Dock="Top" Background="Transparent" Foreground="Gray" FontSize="20" HorizontalContentAlignment="Left" Padding="5, 0, 0, 0" PreviewTextInput="NumberValidation"/>
+            <TextBox x:Name="zustatek" Height="50" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" DockPanel.Dock="Top" Background="Transparent" Foreground="Gray" FontSize="20" HorizontalContentAlignment="Left" Padding="5, 0, 0, 0" PreviewTextInput="NumberValidation"/>
+            <Button x:Name="VytvorUcet" Content="Vytvořit účet" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource RoundButtonTemplate}" Height="45" Width="120" DockPanel.Dock="Top" Margin="115,0,0,0" Click="VytvorUcet_Click"/>
+
+        </DockPanel>
+        <DockPanel x:Name="panelInfoUcty" HorizontalAlignment="Left" Height="195" LastChildFill="False" Background="Black" Margin="250,161,0,0" VerticalAlignment="Top" Width="187">
+            <ComboBox x:Name="MoznostiUctu" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" DockPanel.Dock="Top" Margin="33,0,0,0">
+                <ComboBoxItem>Spořící</ComboBoxItem>
+                <ComboBoxItem>Studentský</ComboBoxItem>
+                <ComboBoxItem>Kreditní</ComboBoxItem>
+            </ComboBox>
+            <Label x:Name="MoznostiUctuLabel" DockPanel.Dock="Top" Content="" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        </DockPanel>
+        <DockPanel x:Name="panelDisplej" HorizontalAlignment="Left" Background="DodgerBlue" Height="147" LastChildFill="False" Margin="499,100,0,0" VerticalAlignment="Top" Width="212">
+            <Label x:Name="labelPIN" Foreground="White" DockPanel.Dock="Top" HorizontalContentAlignment="Center" FontSize="25">
+                <TextBlock TextDecorations="Underline">Zadejte PIN kód</TextBlock>
+            </Label>
+            <TextBox x:Name="zadejtePIN" Width="204" Margin="0,5,0,54" PreviewTextInput="NumberValidation" TextChanged="ZadejtePIN_TextChanged"/>
+        </DockPanel>
+
+        <DockPanel x:Name="panelPINuspech" HorizontalAlignment="Left" Background="DodgerBlue" Height="147" LastChildFill="False" Margin="499,103,0,0" VerticalAlignment="Top" Width="212">
+            <Label x:Name="labelPINuspech" Content="Zadejte hodnotu, kterou chcete" Foreground="White" DockPanel.Dock="Top" HorizontalContentAlignment="Center" FontSize="12"/>
+            <TextBox x:Name="Hodnota" Width="204" Margin="0,5,0,72" PreviewTextInput="NumberValidation"/>
+            <Button x:Name="BTNpotvrdit" Content="Potvrdit" FontSize="20" DockPanel.Dock="Bottom" Height="42" Margin="-151,0,53,0" HorizontalContentAlignment="Left" Padding="15, 0, 0, 0" Click="BTNpotvrdit_Click"/>
+        </DockPanel>
+
+        <DockPanel x:Name="panelNumpad" Background="Gray" HorizontalAlignment="Left" Height="173" LastChildFill="False" Margin="499,247,0,0" VerticalAlignment="Top" Width="212">
+            <Button x:Name="b1" Content="1" Height="57" VerticalAlignment="Top" Width="70" Margin="1,0,0,0" FontSize="30" Click="number_Click"/>
+            <Button x:Name="b2" Content="2" Height="57" VerticalAlignment="Top" Width="70" FontSize="30" Click="number_Click"/>
+            <Button x:Name="b3" Content="3" Height="57" VerticalAlignment="Top" Width="70" FontSize="30" Click="number_Click"/>
+            <Button x:Name="b4" Content="4" Height="57" VerticalAlignment="Bottom" Width="70" Margin="-350,0,0,58" FontSize="30" Click="number_Click"/>
+            <Button x:Name="b5" Content="5" Height="57" VerticalAlignment="Bottom" Width="70" Margin="-210,0,0,58" FontSize="30" Click="number_Click"/>
+            <Button x:Name="b6" Content="6" Height="57" VerticalAlignment="Bottom" Width="70" Margin="-70,0,0,58" FontSize="30" Click="number_Click"/>
+            <Button x:Name="b7" Content="7" Height="57" VerticalAlignment="Bottom" Width="70" Margin="-350,0,0,0" FontSize="30" Click="number_Click"/>
+            <Button x:Name="b8" Content="8" Height="57" VerticalAlignment="Bottom" Width="70" Margin="-210,0,0,0" FontSize="30" Click="number_Click"/>
+            <Button x:Name="b9" Content="9" Height="57" VerticalAlignment="Bottom" Width="70" Margin="-70,0,0,0" FontSize="30" Click="number_Click"/>
+        </DockPanel>
+
+
+    </Grid>
+</Window>

@@ -57,25 +57,26 @@
             <Label x:Name="labelPIN" Foreground="White" DockPanel.Dock="Top" HorizontalContentAlignment="Center" FontSize="25">
                 <TextBlock TextDecorations="Underline">Zadejte PIN kód</TextBlock>
             </Label>
-            <TextBox x:Name="zadejtePIN" Width="204" Margin="0,5,0,54" PreviewTextInput="NumberValidation" TextChanged="ZadejtePIN_TextChanged"/>
+            <TextBox x:Name="zadejtePIN" Width="204" Margin="0,5,0,54" PreviewTextInput="NumberValidation" TextChanged="ZadejtePIN_TextChanged" FontSize="30" HorizontalContentAlignment="Center"/>
         </DockPanel>
 
         <DockPanel x:Name="panelPINuspech" HorizontalAlignment="Left" Background="DodgerBlue" Height="147" LastChildFill="False" Margin="499,103,0,0" VerticalAlignment="Top" Width="212">
             <Label x:Name="labelPINuspech" Content="Zadejte hodnotu, kterou chcete" Foreground="White" DockPanel.Dock="Top" HorizontalContentAlignment="Center" FontSize="12"/>
-            <TextBox x:Name="Hodnota" Width="204" Margin="0,5,0,72" PreviewTextInput="NumberValidation"/>
+            <TextBox x:Name="Hodnota" Width="204" Margin="0,5,0,72" PreviewTextInput="NumberValidation" FontSize="30" HorizontalContentAlignment="Center"/>
             <Button x:Name="BTNpotvrdit" Content="Potvrdit" FontSize="20" DockPanel.Dock="Bottom" Height="42" Margin="-151,0,53,0" HorizontalContentAlignment="Left" Padding="15, 0, 0, 0" Click="BTNpotvrdit_Click"/>
         </DockPanel>
 
-        <DockPanel x:Name="panelNumpad" Background="Gray" HorizontalAlignment="Left" Height="173" LastChildFill="False" Margin="499,247,0,0" VerticalAlignment="Top" Width="212">
+        <DockPanel x:Name="panelNumpad" Background="Gray" HorizontalAlignment="Left" Height="172" LastChildFill="False" Margin="499,247,0,0" VerticalAlignment="Top" Width="282">
             <Button x:Name="b1" Content="1" Height="57" VerticalAlignment="Top" Width="70" Margin="1,0,0,0" FontSize="30" Click="number_Click"/>
             <Button x:Name="b2" Content="2" Height="57" VerticalAlignment="Top" Width="70" FontSize="30" Click="number_Click"/>
             <Button x:Name="b3" Content="3" Height="57" VerticalAlignment="Top" Width="70" FontSize="30" Click="number_Click"/>
             <Button x:Name="b4" Content="4" Height="57" VerticalAlignment="Bottom" Width="70" Margin="-350,0,0,58" FontSize="30" Click="number_Click"/>
             <Button x:Name="b5" Content="5" Height="57" VerticalAlignment="Bottom" Width="70" Margin="-210,0,0,58" FontSize="30" Click="number_Click"/>
             <Button x:Name="b6" Content="6" Height="57" VerticalAlignment="Bottom" Width="70" Margin="-70,0,0,58" FontSize="30" Click="number_Click"/>
-            <Button x:Name="b7" Content="7" Height="57" VerticalAlignment="Bottom" Width="70" Margin="-350,0,0,0" FontSize="30" Click="number_Click"/>
-            <Button x:Name="b8" Content="8" Height="57" VerticalAlignment="Bottom" Width="70" Margin="-210,0,0,0" FontSize="30" Click="number_Click"/>
-            <Button x:Name="b9" Content="9" Height="57" VerticalAlignment="Bottom" Width="70" Margin="-70,0,0,0" FontSize="30" Click="number_Click"/>
+            <Button x:Name="b7" Content="7" Height="57" VerticalAlignment="Bottom" Width="70" Margin="-350,0,0,1" FontSize="30" Click="number_Click"/>
+            <Button x:Name="b8" Content="8" Height="57" VerticalAlignment="Bottom" Width="70" Margin="-210,0,0,1" FontSize="30" Click="number_Click"/>
+            <Button x:Name="b9" Content="9" Height="57" VerticalAlignment="Bottom" Width="70" Margin="-70,0,0,1" FontSize="30" Click="number_Click"/>
+            <Button x:Name="b0" Content="0" Height="57" VerticalAlignment="Bottom" Width="70" Margin="0,0,0,58" FontSize="30" Click="number_Click"/>
         </DockPanel>
         <Button x:Name="PlusMesic" Content="Plus měsíc" Click="PlusMesic_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="632,136,0,0"/>
     </Grid>

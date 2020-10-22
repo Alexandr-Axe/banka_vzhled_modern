@@ -49,12 +49,10 @@ namespace banka_Vzhled
         //Další měsíc mám základ < 0 (mínus, kde jsem skončil)
         //Možnost zaplatit peníze, abych se dostal z mínusu
 
-        public double ChybiSplatit { get; set; }
-
         public Kreditni(string nazev, double zustatek, double urok, int pin, DateTime datumZalozeni) : base(nazev, zustatek, urok, pin, datumZalozeni)
         {
             TypUctu = "Kreditní";
         }
-        public override string ToString() => $"Název účtu : {Nazev}\nTyp : {TypUctu}\nMaximální půjčka : {Zustatek} Kč\nMěsíční úrok : {Urok}%\nDatum splátky : {DatumZalozeni.ToString("dd/MM/yyyy")}\nDatum úročení : {DatumZalozeni.AddMonths(1).ToString("dd/MM/yyyy")}";
+        public override string ToString() => $"Název účtu : {Nazev}\nTyp : {TypUctu}\nJe třeba vrátit : {-Zustatek} Kč\nMěsíční úrok : {Urok}%\nDatum splátky : {DatumZalozeni.ToString("dd/MM/yyyy")}\nDatum úročení : {DatumZalozeni.AddMonths(1).ToString("dd/MM/yyyy")}";
     }
 }

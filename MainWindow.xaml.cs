@@ -42,7 +42,7 @@ namespace banka_Vzhled
             BTNbankomat.Width = panelSideMenu.Width;
             BTNvkladomat.Width = panelSideMenu.Width;
             panelPenize.Width = panelSideMenu.Width;
-            panelPenize.Background = new SolidColorBrush(Color.FromRgb(48, 48, 48));
+            panelPenize.Background = new SolidColorBrush(Color.FromRgb(27, 67, 90));
             ohraniceniNahore.Width = Width - 250;
             ohraniceniNahore.Background = new SolidColorBrush(Color.FromRgb(23, 21, 32));
             ohraniceniDole.Width = ohraniceniNahore.Width;
@@ -217,7 +217,7 @@ namespace banka_Vzhled
                                 Ucty.Add(new Studentsky(jmeno.Text, Convert.ToDouble(zustatek.Text), 0.1, Convert.ToInt32(pin.Text), 3000, CasProgramu));
                                 break;
                             case "Kreditní":
-                                Ucty.Add(new Kreditni(jmeno.Text, Convert.ToDouble(zustatek.Text), 20, Convert.ToInt32(pin.Text), CasProgramu));
+                                Ucty.Add(new Kreditni(jmeno.Text, -Convert.ToDouble(zustatek.Text), 20, Convert.ToInt32(pin.Text), CasProgramu));
                                 break;
                         }
                         foreach (Ucet Item in Ucty)
@@ -281,6 +281,9 @@ namespace banka_Vzhled
                 case "b9":
                     zadejtePIN.Text += "9";
                     break;
+                case "b0":
+                    zadejtePIN.Text += "0";
+                    break;
             }
         }
 
@@ -316,7 +319,19 @@ namespace banka_Vzhled
             {
                 foreach (Ucet Item in Ucty)
                 {
-                    if (Item.Nazev == VypsaneUcty.SelectedItem.ToString()) Item.Zustatek += Convert.ToDouble(Hodnota.Text);
+                    if (Item.Nazev == VypsaneUcty.SelectedItem.ToString())
+                    {
+                        if (Item is Kreditni)
+                        {
+                            if (((Kreditni)Item).Zustatek + Convert.ToDouble(Hodnota.Text) > 0)
+                            { 
+                                MessageBox.Show($"Potřeboval jste splatit pouze {-Item.Zustatek}, proto jsme potřebné peníze uhradili a vrátili Vám {Convert.ToDouble(Hodnota.Text) + Item.Zustatek}.");
+                                Item.Zustatek = 0;
+                            }
+                            else Item.Zustatek += Convert.ToDouble(Hodnota.Text);
+                        }
+                        else Item.Zustatek += Convert.ToDouble(Hodnota.Text);
+                    }
                 }
             }
             else if (labelPINuspech.Content.ToString() == "Zadejte hodnotu, kterou chcete vybrat")
@@ -428,8 +443,8 @@ namespace banka_Vzhled
         }
         /*private void StartStopDays_Click(object sender, RoutedEventArgs e)
 {
-   if (BeziDny) BeziDny = false;
-   else BeziDny = true;
+if (BeziDny) BeziDny = false;
+else BeziDny = true;
 }*/
     }
 }

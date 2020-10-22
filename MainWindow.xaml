@@ -24,8 +24,8 @@
                 <Button x:Name="BTNvkladomat" Content="Vkladomat" Height="45" VerticalAlignment="Top" DockPanel.Dock="Top" HorizontalContentAlignment="Left" Padding="35, 0, 0, 0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Foreground="White" Click="BTNbankvklad_Click"/>
             </DockPanel>
 
-            <Button x:Name="BTNsplatky" Content="Splátky" Padding="10" BorderThickness="0" Height="45" DockPanel.Dock="Top" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Foreground="White" HorizontalContentAlignment="Left" Width="250"/>
-            <Button x:Name="BTNnapoveda" Content="Nápověda" Padding="10" BorderThickness="0" Height="45" DockPanel.Dock="Top" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Foreground="White" HorizontalContentAlignment="Left" Width="250"/>
+            <!--<Button x:Name="BTNsplatky" Content="Splátky" Padding="10" BorderThickness="0" Height="45" DockPanel.Dock="Top" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Foreground="White" HorizontalContentAlignment="Left" Width="250"/>-->
+            <Button x:Name="BTNnapoveda" Content="Nápověda" Padding="10" BorderThickness="0" Height="45" DockPanel.Dock="Top" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Foreground="White" HorizontalContentAlignment="Left" Width="250" Click="BTNnapoveda_Click"/>
             <Image Height="185" VerticalAlignment="Top" Width="100"/>
         </DockPanel>
 
@@ -35,7 +35,7 @@
         <ListBox x:Name="VypsaneUcty" HorizontalAlignment="Left" Height="319" Margin="250,100,0,0" VerticalAlignment="Top" Width="187" SelectionChanged="VypsaneUcty_SelectionChanged"/>
 
         <Label x:Name="InfoUctyLabel" HorizontalAlignment="Left" Margin="437,100,0,0" VerticalAlignment="Top" Height="319" Width="190"/>
-        <Calendar x:Name="Kalendar" HorizontalAlignment="Left" Margin="682,100,0,0" VerticalAlignment="Top"/>
+        <!--<Calendar x:Name="Kalendar" HorizontalAlignment="Left" Margin="682,100,0,0" VerticalAlignment="Top"/>-->
 
         <DockPanel x:Name="panelVytvorit" HorizontalAlignment="Left" Height="195" Width="350" LastChildFill="False" Margin="437,161,0,0" VerticalAlignment="Top" Background="Black">
 
@@ -77,7 +77,6 @@
             <Button x:Name="b8" Content="8" Height="57" VerticalAlignment="Bottom" Width="70" Margin="-210,0,0,0" FontSize="30" Click="number_Click"/>
             <Button x:Name="b9" Content="9" Height="57" VerticalAlignment="Bottom" Width="70" Margin="-70,0,0,0" FontSize="30" Click="number_Click"/>
         </DockPanel>
-
-
+        <Button x:Name="PlusMesic" Content="Plus měsíc" Click="PlusMesic_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="632,136,0,0"/>
     </Grid>
 </Window>

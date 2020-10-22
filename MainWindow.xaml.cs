@@ -34,6 +34,7 @@ namespace banka_Vzhled
 
         void DesignStart()
         {
+            //StartStopDays.Visibility = Visibility.Visible;
             panelSideMenu.Height = Height;
             panelLogo.Width = panelSideMenu.Width;
             BTNmainOperator.Width = panelSideMenu.Width;
@@ -66,10 +67,14 @@ namespace banka_Vzhled
             pin.MaxLength = 4;
             zadejtePIN.MaxLength = 4;
             Hodnota.Width = panelPINuspech.Width;
+            PlusMesic.Visibility = Visibility.Visible;
+            ZrychlenyCas();
         } //Design aplikace
         void DesignOperator()
         {
-            Kalendar.Visibility = Visibility.Visible;
+            //StartStopDays.Visibility = Visibility.Visible;
+            PlusMesic.Visibility = Visibility.Visible;
+            //Kalendar.Visibility = Visibility.Visible;
             VypsaneUcty.Visibility = Visibility.Visible;
             InfoUctyLabel.Visibility = Visibility.Visible;
             panelVytvorit.Visibility = Visibility.Hidden;
@@ -85,7 +90,9 @@ namespace banka_Vzhled
         } //Design sub-panelu na bankomat a vkladomat a samotné okno
         void DesignVytvorit()
         {
-            Kalendar.Visibility = Visibility.Hidden;
+            //StartStopDays.Visibility = Visibility.Hidden;
+            PlusMesic.Visibility = Visibility.Hidden;
+            //Kalendar.Visibility = Visibility.Hidden;
             VypsaneUcty.Visibility = Visibility.Hidden;
             InfoUctyLabel.Visibility = Visibility.Hidden;
             panelPINuspech.Visibility = Visibility.Hidden;
@@ -164,13 +171,15 @@ namespace banka_Vzhled
         private void BTNbankvklad_Click(object sender, RoutedEventArgs e)
         {
             zadejtePIN.Text = "";
+            PlusMesic.Visibility = Visibility.Hidden;
+            //StartStopDays.Visibility = Visibility.Hidden;
             VypsaneUcty.Visibility = Visibility.Visible;
             InfoUctyLabel.Visibility = Visibility.Hidden;
             panelNumpad.Visibility = Visibility.Visible;
             panelDisplej.Visibility = Visibility.Visible;
             panelVytvorit.Visibility = Visibility.Hidden;
             panelInfoUcty.Visibility = Visibility.Hidden;
-            Kalendar.Visibility = Visibility.Hidden;
+            //Kalendar.Visibility = Visibility.Hidden;
             if (((Button)sender).Name == "BTNbankomat") labelPINuspech.Content = "Zadejte hodnotu, kterou chcete vybrat";
             else if (((Button)sender).Name == "BTNvkladomat") labelPINuspech.Content = "Zadejte hodnotu, kterou chcete vložit";
         }
@@ -223,9 +232,10 @@ namespace banka_Vzhled
             }
             else MessageBox.Show("Vyberte typ účtu, který si chcete založit", "CHYBA", MessageBoxButton.OK, MessageBoxImage.Information);
         }
-
+        object vybrane;
         private void VypsaneUcty_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (panelPINuspech.Visibility == Visibility.Visible) VypsaneUcty.SelectedItem = vybrane; //Zabránění vybrat si jiný účet při výběru peněz
             foreach (Ucet Item in Ucty)
             {
                 if (Item.Nazev == VypsaneUcty.SelectedItem.ToString())
@@ -233,6 +243,7 @@ namespace banka_Vzhled
                     InfoUctyLabel.Content = Item.ToString();
                 }
             }
+            vybrane = VypsaneUcty.SelectedItem;
         }
         private void NumberValidation(object sender, TextCompositionEventArgs e)
         {
@@ -315,7 +326,8 @@ namespace banka_Vzhled
                     if (Item.Nazev == VypsaneUcty.SelectedItem.ToString())
                     {
                         if (Item is Studentsky && ((Studentsky)Item).MaxVyber < Convert.ToInt16(Hodnota.Text)) MessageBox.Show("Zadaná suma překračuje limit maximálního jednorázového výběru", "CHYBA", MessageBoxButton.OK, MessageBoxImage.Error);
-                        if (Item.Zustatek - Convert.ToDouble(Hodnota.Text) >= 0) Item.Zustatek -= Convert.ToDouble(Hodnota.Text);
+                        if (Item.Zustatek - Convert.ToDouble(Hodnota.Text) >= 0 && !(Item is Kreditni) || Item is Kreditni) Item.Zustatek -= Convert.ToDouble(Hodnota.Text);
+                        else MessageBox.Show("Zadaná suma překračuje limit Vašeho stavu na účtu", "CHYBA", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
             }
@@ -328,5 +340,96 @@ namespace banka_Vzhled
             }
             Hodnota.Text = "";
         }
+
+        private void PlusMesic_Click(object sender, RoutedEventArgs e)
+        {
+            CasProgramu = CasProgramu.AddMonths(1);
+            //Kalendar.SelectedDate = CasProgramu;
+            UbehlMesic(Ucty);
+            foreach (Ucet Item in Ucty)
+            {
+                if (Item.Nazev == VypsaneUcty.SelectedItem.ToString())
+                {
+                    InfoUctyLabel.Content = Item.ToString();
+                }
+            }
+        }
+        public void ZrychlenyCas()
+        {
+            DispatcherTimer dispatcherTimer = new DispatcherTimer();
+            dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
+            dispatcherTimer.Start();
+
+            void dispatcherTimer_Tick(object sender, EventArgs e)
+            {
+                if (BeziDny)
+                {
+                    //casProgramu = casProgramu.AddDays(1);
+                    CasProgramu = CasProgramu.AddDays(1);
+                    //Kalendar.SelectedDate = CasProgramu;
+                    UbehlMesic(Ucty);
+                }
+            }
+        }
+        private void UbehlMesic(List<Ucet> ucty)
+        {
+            try
+            {
+                foreach (Sporici Item in ucty)
+                {
+                    TimeSpan rozdil = CasProgramu - Item.DatumZalozeni;
+                    if (rozdil >= TimeSpan.FromDays(31))
+                    {
+                        Item.Zustatek *= Item.Urok / 100 + 1;
+                        Item.Zustatek = Math.Round(Item.Zustatek, 2);
+                    }
+                    Item.DatumZalozeni = Item.DatumZalozeni.AddMonths(1);
+                }
+            }
+            catch (Exception)
+            {
+            }
+            try
+            {
+                foreach (Studentsky Item in ucty)
+                {
+                    TimeSpan rozdil = CasProgramu - Item.DatumZalozeni;
+                    if (rozdil >= TimeSpan.FromDays(31))
+                    {
+                        Item.Zustatek *= Math.Round(Item.Urok / 100 + 1, 2);
+                    }
+                    Item.DatumZalozeni = Item.DatumZalozeni.AddMonths(1);
+                }
+            }
+            catch (Exception)
+            {
+            }
+            try
+            {
+                foreach (Kreditni Item in ucty)
+                {
+                    TimeSpan rozdil = CasProgramu - Item.DatumZalozeni;
+                    if (rozdil >= TimeSpan.FromDays(31))
+                    {
+                        Item.Zustatek *= Math.Round(Item.Urok / 100 + 1, 2);
+                    }
+                    Item.DatumZalozeni = Item.DatumZalozeni.AddMonths(1);
+                }
+            }
+            catch (Exception)
+            {
+            }
+        } //Vypočetní úroku po uplynutí jednoho měsíce
+        string pomoc = "Tento program byl vytvořen v rámci maturitního předmětu. Každé tlačítko Vám ukáže jiné okno. V hlavním okně můžete sledovat informace o svých účtech a rychle se překlikávat mezi měsíci. V panelu vytvořit si vytváříte účet. Abyste si vytvořili účet, musíte zadat název účtu, PIN, počáteční vklad a typ účtu, následně stačí jen potvrdit výběr. V kolonce peníze si musíte vybrat, zda chcete do bankomatu, nebo do vkladomatu. V obou případech si musíte vybrat účet a zadat od něho PIN kód. A podle toho, v jaké jste kolonce, si buď vyberete peníze, nebo si peníze uložíte.";
+        private void BTNnapoveda_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show(pomoc, "Nápověda na použití aplikace na simulaci bankovních účtů", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.OK);
+        }
+        /*private void StartStopDays_Click(object sender, RoutedEventArgs e)
+{
+   if (BeziDny) BeziDny = false;
+   else BeziDny = true;
+}*/
     }
 }
